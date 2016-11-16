@@ -1,16 +1,20 @@
 package com.korgutlova;
 
 public class Market {
+    final static String GUM = "GUM";
+    final static String ASHAN = "Ashan";
+    final static String MAGNIT = "Magnit";
+
     public static String checkMarket(String nameMarket, int money) {
         String isWork;
         switch (nameMarket) {
-            case "GUM":
+            case GUM:
                 isWork = "yes";
                 break;
-            case "5-ka":
+            case MAGNIT:
                 isWork = "no";
                 break;
-            case "Ashan":
+            case ASHAN:
                 isWork = "closes";
                 break;
             default:
