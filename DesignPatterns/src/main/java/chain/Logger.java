@@ -1,13 +1,7 @@
 package chain;
 
-public class Logger {
-    private Message message;
+public interface Logger {
+    void log(String message, int level);
 
-    public Logger(Message message){
-        this.message = message;
-    }
-
-    public void getMessage(){
-        System.out.println(message.showInfo());
-    }
+    void setNext(Logger logger);
 }

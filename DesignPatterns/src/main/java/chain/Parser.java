@@ -1,30 +1,30 @@
 package chain;
 
 public class Parser {
-    public static void getText(String text) {
-        Logger loggerError;
-        Logger loggerInfo;
-        Logger loggerWarn;
-        int i = 1;
-        String mainWord = "";
-        while (text.charAt(i) != ']') {
-            mainWord += text.charAt(i);
-            i += 1;
+    final static String ERROR = "ERROR";
+    final static String WARN = "WARN";
+    final static String INFO = "INFO";
+
+    public static int getLevel(String message) {
+        if (message.charAt(0) == '[') {
+            int index = 1;
+            String mainWord = "";
+            while (message.charAt(index) != ']') {
+                mainWord += message.charAt(index);
+                index += 1;
+            }
+            mainWord = mainWord.toUpperCase();
+            switch (mainWord) {
+                case ERROR:
+                    return 3;
+                case WARN:
+                    return 2;
+                case INFO:
+                    return 1;
+                default:
+                    return -1;
+            }
         }
-        i += 1;
-        text = text.substring(i);
-        mainWord = mainWord.toUpperCase();
-        if (mainWord.equals("ERROR")) {
-            loggerError = new Logger(new ErrorMessage(text));
-            loggerError.getMessage();
-            loggerInfo = new Logger(new InfoMessage(text));
-            loggerInfo.getMessage();
-        } else if (mainWord.equals("WARN")) {
-            loggerWarn = new Logger(new WarnMessage(text));
-            loggerWarn.getMessage();
-        } else{
-            loggerInfo = new Logger(new InfoMessage(text));
-            loggerInfo.getMessage();
-        }
+        return -1;
     }
 }
