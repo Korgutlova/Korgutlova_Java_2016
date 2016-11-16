@@ -20,13 +20,13 @@
     </properties>
     <artifactId>B</artifactId>
     <dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>com.korgutlova</groupId>
-            <artifactId>C</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+        <dependencies>
+            <dependency>
+                <groupId>com.korgutlova</groupId>
+                <artifactId>C</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
     <build>
         <plugins>

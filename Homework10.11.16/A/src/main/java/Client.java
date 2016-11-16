@@ -9,8 +9,9 @@ public class Client {
     }
 
     public boolean buySomething(int money, String market) {
-        if (Market.checkMarket(market, money) == 1) {
-            if (Money.buyBag(money) && this.getMoney() >= money){
+        if (Market.checkMarket(market, money) == 2) {
+            System.out.println("uuu");
+            if (Money.buyBag(money) && this.getMoney() >= money) {
                 this.setMoney(this.getMoney() - money);
                 return true;
             }

@@ -14,7 +14,7 @@ public class Market {
             default:
                 flag = 0;
         }
-        if(Money.checkMoney(money)){
+        if (Money.checkMoney(money)) {
             return flag;
         }
         return -1;
