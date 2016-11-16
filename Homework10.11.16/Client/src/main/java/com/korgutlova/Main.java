@@ -1,3 +1,5 @@
+package com.korgutlova;
+
 public class Main {
     public static void main(String[] args) {
         Client client = new Client("Masha", 10000);

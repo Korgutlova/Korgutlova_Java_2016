@@ -1,3 +1,5 @@
+package com.korgutlova;
+
 public class Client {
 
     private final String name;
@@ -9,8 +11,7 @@ public class Client {
     }
 
     public boolean buySomething(int money, String market) {
-        if (Market.checkMarket(market, money) == 2) {
-            System.out.println("uuu");
+        if (Market.checkMarket(market, money).equals("yes")) {
             if (Money.buyBag(money) && this.getMoney() >= money) {
                 this.setMoney(this.getMoney() - money);
                 return true;
