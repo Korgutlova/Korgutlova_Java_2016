@@ -8,7 +8,11 @@ public class UniqueReader extends FilterReader {
 
     @Override
     public int read(char[] cbuf, int off, int len) throws IOException {
-        return super.read(cbuf, off, len);
+        int result = super.read(cbuf, off, len);
+        for (int i = off; i < off + result; i++) {
+            cbuf[i] = transform(cbuf[i]);
+        }
+        return result;
     }
 
     protected UniqueReader(Reader in) {
