@@ -1,18 +1,20 @@
 package chain;
 
-public class ErrorLogger implements Logger {
-    final static int ERROR = 3;
-    Logger logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class ErrorLogger extends Logger {
 
     @Override
-    public void log(String message, int level) {
-        if (level == ERROR){
-            System.out.println("ERROR => " + message);
+    public void log(String message) {
+        Pattern pattern = Pattern.compile("^\\[ERROR\\] : (?<message>\\[[a-zA-Z -_0-9]*\\])$");
+        Matcher matcher = pattern.matcher(message);
+        if(matcher.matches()){
+            writeMessage(matcher.group("message"));
         }
-    }
+        if (logger != null){
+            logger.log(message);
+        }
 
-    @Override
-    public void setNext(Logger logger) {
-        this.logger = logger;
     }
 }

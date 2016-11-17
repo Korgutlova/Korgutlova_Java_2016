@@ -1,24 +1,19 @@
 package chain;
 
-public class InfoLogger implements Logger {
-    final static int INFO = 1;
-    final static int ERROR = 3;
-    Logger logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class InfoLogger extends Logger {
 
     @Override
-    public void log(String message, int level) {
-        if(level == INFO){
-            System.out.println("INFO => " + message);
-        } else if (level == ERROR){
-            System.out.println("INFO => " + message);
-            logger.log(message, level);
-        } else {
-            logger.log(message, level);
+    public void log(String message) {
+        Pattern pattern = Pattern.compile("^\\[((ERROR|INFO))\\] : (?<message>\\[[a-zA-Z -_0-9]*\\])");
+        Matcher matcher = pattern.matcher(message);
+        if(matcher.matches()){
+            writeMessage(matcher.group("message"));
         }
-    }
-
-    @Override
-    public void setNext(Logger logger) {
-        this.logger = logger;
+        if(logger != null){
+            logger.log(message);
+        }
     }
 }

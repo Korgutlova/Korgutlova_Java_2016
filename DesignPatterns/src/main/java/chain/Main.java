@@ -3,8 +3,6 @@ package chain;
 import java.util.ArrayList;
 import java.util.List;
 
-import static chain.Parser.getLevel;
-
 public class Main {
     public static void main(String[] args) {
         Logger logger = new InfoLogger();
@@ -23,7 +21,7 @@ public class Main {
         messages.add(warnMessage);
         messages.add(errorMessage);
         messages.add(invalidMessage);
-        messages.forEach(message -> logger.log(message, getLevel(message)));
+        messages.forEach(message -> logger.log(message));
 
         //Output shoul looks this way:
         //[some info here]

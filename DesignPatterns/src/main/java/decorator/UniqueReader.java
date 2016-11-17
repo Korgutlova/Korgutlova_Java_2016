@@ -1,17 +1,25 @@
 package decorator;
 
-import java.io.CharArrayReader;
-import java.io.FilterInputStream;
+import java.io.FilterReader;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.Reader;
 
-public class UniqueReader extends FilterInputStream{
+public class UniqueReader extends FilterReader {
+
+    @Override
+    public int read(char[] cbuf, int off, int len) throws IOException {
+        return super.read(cbuf, off, len);
+    }
+
+    protected UniqueReader(Reader in) {
+        super(in);
+    }
 
 
     private char transform(char x) {
-        char [] arr = {'e', 'u', 'o', 'a', 'y', 'i'};
-        for(char ch : arr){
-            if(x == ch){
+        char[] arr = {'e', 'u', 'o', 'a', 'y', 'i'};
+        for (char ch : arr) {
+            if (x == ch) {
                 return '#';
             }
         }
@@ -22,19 +30,7 @@ public class UniqueReader extends FilterInputStream{
     public int read() throws IOException {
         int i = super.read();
         char symbol = transform((char) i);
-        return i != - 1 ? symbol : i;
+        return i != -1 ? symbol : i;
     }
 
-    @Override
-    public int read(byte[] b, int off, int len) throws IOException {
-        int result = super.read(b, off, len);
-        for (int i = off; i < off + result; i++) {
-            b[i] = (byte) transform((char) b[i]);
-        }
-        return result;
-    }
-
-    protected UniqueReader(InputStream in) {
-        super(in);
-    }
 }

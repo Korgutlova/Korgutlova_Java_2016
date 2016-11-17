@@ -4,9 +4,9 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        InputStream is = new UniqueReader(new BufferedInputStream(new FileInputStream("test.txt")));
-        while(is.available() != 0) {
-            System.out.print((char) is.read());
+        Reader reader = new UniqueReader(new InputStreamReader(new FileInputStream("test.txt")));
+        while(reader.ready()) {
+            System.out.print((char) reader.read());
         }
     }
 }

@@ -1,20 +1,19 @@
 package chain;
 
-public class WarnLogger implements Logger {
-    final static int WARN = 2;
-    Logger logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class WarnLogger extends Logger {
 
     @Override
-    public void log(String message, int level) {
-        if(level == WARN){
-            System.out.println("WARN => " + message);
-        } else {
-            logger.log(message, level);
+    public void log(String message) {
+        Pattern pattern = Pattern.compile("^\\[WARN\\] : (?<message>\\[[a-zA-Z -_0-9]*\\])$");
+        Matcher matcher = pattern.matcher(message);
+        if(matcher.matches()){
+           writeMessage(matcher.group("message"));
         }
-    }
-
-    @Override
-    public void setNext(Logger logger) {
-        this.logger = logger;
+        if (logger != null){
+            logger.log(message);
+        }
     }
 }
