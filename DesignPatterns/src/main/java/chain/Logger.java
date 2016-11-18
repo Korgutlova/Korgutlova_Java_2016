@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 abstract class Logger {
-    private String condition;
+    protected String condition;
     Logger logger;
 
     void log(String message) {
@@ -20,9 +20,5 @@ abstract class Logger {
 
     void setNext(Logger logger) {
         this.logger = logger;
-    }
-
-    protected void setCondition(String condition){
-        this.condition = condition;
     }
 }

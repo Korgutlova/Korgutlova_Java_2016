@@ -3,6 +3,6 @@ package chain;
 public class ErrorLogger extends Logger {
 
     public ErrorLogger(){
-        setCondition("^\\[ERROR\\] : (?<message>\\[[a-zA-Z -_0-9]*\\])");
+        condition = "^\\[ERROR\\] : (?<message>\\[[a-zA-Z -_0-9]*\\])";
     }
 }
