@@ -8,11 +8,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CommunityDaoImpl extends DAO implements CommunityDao {
+    private final String queryGet = "SELECT * FROM community WHERE id=?";
+    private final String queryUpdate = "UPDATE community SET name=?, " +
+            "description=?, founder_id=?, created_at=? WHERE id=?";
 
     @Override
     public Community getCommunity(long id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM community WHERE id=?");
+            PreparedStatement statement = connection.prepareStatement(queryGet);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -30,8 +33,7 @@ public class CommunityDaoImpl extends DAO implements CommunityDao {
     @Override
     public boolean updateCommunity(Community community) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE community SET name=?, " +
-                    "description=?, founder_id=?, created_at=? WHERE id=?");
+            PreparedStatement statement = connection.prepareStatement(queryUpdate);
             statement.setString(1, community.getName());
             statement.setString(2, community.getDescription());
             statement.setLong(3, community.getFounderId());

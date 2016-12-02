@@ -8,11 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDaoImpl extends DAO implements UserDao {
+    private final String queryCreate = "INSERT INTO users(name, surname, email, " +
+            "password, role, status) VALUES  (?,?,?,?,?,?)";
+    private final String queryGet = "SELECT * FROM users where id=?";
 
     public boolean createUser(User user) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO users(name, surname, email, " +
-                    "password, role, status) VALUES  (?,?,?,?,?,?)");
+            PreparedStatement statement = connection.prepareStatement(queryCreate);
             statement.setString(1, user.getName());
             statement.setString(2, user.getSurname());
             statement.setString(3, user.getEmail());
@@ -29,10 +31,10 @@ public class UserDaoImpl extends DAO implements UserDao {
     @Override
     public boolean existUser(long id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users where id=?");
+            PreparedStatement statement = connection.prepareStatement(queryGet);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 return true;
             }
             return false;
@@ -44,10 +46,10 @@ public class UserDaoImpl extends DAO implements UserDao {
     @Override
     public User getUser(long id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users where id=?");
+            PreparedStatement statement = connection.prepareStatement(queryGet);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 return new User(
                         resultSet.getLong("id"),
                         resultSet.getString("name"),

@@ -1,5 +1,6 @@
 package com.korgutlova.entities;
 
+
 import java.sql.Timestamp;
 
 public class Request {
@@ -9,11 +10,11 @@ public class Request {
     private String address;
     private double latitude;
     private double longitude;
-    private java.sql.Timestamp createdAt;
+    private Timestamp createdAt;
     private String serviceType;
     private String status;
 
-    public Request(long needyId, long volunteerId, String address, double latitude, double longitude, java.sql.Timestamp createdAt, String serviceType, String status) {
+    public Request(long needyId, long volunteerId, String address, double latitude, double longitude, Timestamp createdAt, String serviceType, String status) {
         this.needyId = needyId;
         this.volunteerId = volunteerId;
         this.address = address;
@@ -48,7 +49,7 @@ public class Request {
         return longitude;
     }
 
-    public java.sql.Timestamp getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 

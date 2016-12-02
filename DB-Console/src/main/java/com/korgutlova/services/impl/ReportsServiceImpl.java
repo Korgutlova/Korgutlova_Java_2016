@@ -37,18 +37,18 @@ public class ReportsServiceImpl extends Service implements ReportsService {
                 case 2: {
                     System.out.println("Enter season");
                     int[] months = new int[3];
-                    String season = sc.nextLine();
+                    Season season = Season.valueOf(sc.nextLine().toUpperCase());
                     switch (season) {
-                        case "winter":
+                        case WINTER:
                             months = new int[]{12, 1, 2};
                             break;
-                        case "spring":
+                        case SPRING:
                             months = new int[]{3, 4, 5};
                             break;
-                        case "summer":
+                        case SUMMER:
                             months = new int[]{6, 7, 8};
                             break;
-                        case "autumn":
+                        case AUTUMN:
                             months = new int[]{9, 10, 11};
                             break;
                         default:

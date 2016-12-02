@@ -1,5 +1,6 @@
 package com.korgutlova.entities;
 
+
 import java.sql.Timestamp;
 
 public class News {
@@ -7,7 +8,7 @@ public class News {
     private String text;
     private long communityId;
     private long authorId;
-    private java.sql.Timestamp createdAt;
+    private Timestamp createdAt;
 
     public News(long id, String text, long communityId, long authorId, Timestamp createdAt) {
         this.id = id;

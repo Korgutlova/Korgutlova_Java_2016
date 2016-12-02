@@ -1,5 +1,6 @@
 package com.korgutlova.entities;
 
+
 import java.sql.Timestamp;
 
 public class Message {
@@ -7,7 +8,7 @@ public class Message {
     private String text;
     private long senderId;
     private long recipientId;
-    private java.sql.Timestamp createdAt;
+    private Timestamp createdAt;
     private String status;
 
     public Message(String text, long senderId, long recipientId, java.sql.Timestamp createdAt, String status) {

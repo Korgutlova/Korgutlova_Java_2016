@@ -12,13 +12,41 @@ import java.util.List;
 
 public class ReportsDaoImpl extends DAO implements ReportsDao {
     private UserDao userDao = new UserDaoImpl();
+    private final String queryOne = "SELECT count(*) " +
+            "FROM community JOIN news ON community.id = news.community_id " +
+            "WHERE founder_id = ? GROUP BY news.id";
+    private final String queryTwo = "WITH user_msg AS (\n" +
+            "    SELECT\n" +
+            "      u.id,\n" +
+            "      count(m_r.id) msg_rec\n" +
+            "    FROM users u\n" +
+            "      LEFT JOIN message m_r ON u.id = m_r.recipient_id\n" +
+            "    WHERE extract(MONTH FROM m_r.created_at) IN (?, ?, ?)\n" +
+            "    GROUP BY u.id\n" +
+            ")\n" +
+            "SELECT\n" +
+            "  user_msg.id\n" +
+            "FROM user_msg\n" +
+            "WHERE user_msg.msg_rec = (SELECT max(user_msg.msg_rec)\n" +
+            "                                  FROM user_msg)";
+    private final String queryThree = "WITH users_vol AS (\n" +
+            "    SELECT\n" +
+            "      users.id,\n" +
+            "      count(*) resp\n" +
+            "    FROM users\n" +
+            "      JOIN request ON users.id = request.volunteer_id\n" +
+            "    WHERE request.address LIKE ?\n" +
+            "    GROUP BY users.id\n" +
+            ")\n" +
+            "SELECT users_vol.id\n" +
+            "FROM users_vol\n" +
+            "WHERE resp = (SELECT max(users_vol.resp)\n" +
+            "              FROM users_vol)";
 
     @Override
     public int getNewsInCommunity(long id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT count(*) " +
-                    "FROM community JOIN news ON community.id = news.community_id " +
-                    "WHERE founder_id = ? GROUP BY news.id");
+            PreparedStatement statement = connection.prepareStatement(queryOne);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             int sum = 0;
@@ -35,20 +63,7 @@ public class ReportsDaoImpl extends DAO implements ReportsDao {
     @Override
     public List<User> getUsersWithTheMostMessages(int... months) {
         try {
-            PreparedStatement statement = connection.prepareStatement("WITH user_msg AS (\n" +
-                    "    SELECT\n" +
-                    "      u.id,\n" +
-                    "      count(m_r.id) msg_rec\n" +
-                    "    FROM users u\n" +
-                    "      LEFT JOIN message m_r ON u.id = m_r.recipient_id\n" +
-                    "    WHERE extract(MONTH FROM m_r.created_at) IN (?, ?, ?)\n" +
-                    "    GROUP BY u.id\n" +
-                    ")\n" +
-                    "SELECT\n" +
-                    "  user_msg.id\n" +
-                    "FROM user_msg\n" +
-                    "WHERE user_msg.msg_rec = (SELECT max(user_msg.msg_rec)\n" +
-                    "                                  FROM user_msg)");
+            PreparedStatement statement = connection.prepareStatement(queryTwo);
             statement.setInt(1, months[0]);
             statement.setInt(2, months[1]);
             statement.setInt(3, months[2]);
@@ -66,19 +81,7 @@ public class ReportsDaoImpl extends DAO implements ReportsDao {
     @Override
     public List<User> getRespondedUsersWithTheMostRequests(String pattern) {
         try {
-            PreparedStatement statement = connection.prepareStatement("WITH users_vol AS (\n" +
-                    "    SELECT\n" +
-                    "      users.id,\n" +
-                    "      count(*) resp\n" +
-                    "    FROM users\n" +
-                    "      JOIN request ON users.id = request.volunteer_id\n" +
-                    "    WHERE request.address LIKE ?\n" +
-                    "    GROUP BY users.id\n" +
-                    ")\n" +
-                    "SELECT users_vol.id\n" +
-                    "FROM users_vol\n" +
-                    "WHERE resp = (SELECT max(users_vol.resp)\n" +
-                    "              FROM users_vol)");
+            PreparedStatement statement = connection.prepareStatement(queryThree);
             statement.setString(1, '%' + pattern + '%');
             ResultSet resultSet = statement.executeQuery();
             List<User> users = new ArrayList<>();

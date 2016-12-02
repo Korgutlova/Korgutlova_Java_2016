@@ -1,11 +1,13 @@
 package com.korgutlova.entities;
 
+import java.sql.Date;
+
 public class Community {
     private long id;
     private String name;
     private String description;
     private long founderId;
-    private java.sql.Date createdAt;
+    private Date createdAt;
 
     public Community(long id, String name, String description, long founderId, java.sql.Date createdAt) {
         this.id = id;

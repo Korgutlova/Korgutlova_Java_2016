@@ -6,14 +6,18 @@ import com.korgutlova.entities.Request;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class RequestDaoImpl extends DAO implements RequestDao{
+public class RequestDaoImpl extends DAO implements RequestDao {
+    private final String queryOne = "INSERT INTO request(needy_id, address, " +
+            "latitude, longitude, created_at, service_type, status) VALUES (?,?,?,?,?,?,?)";
+    private final String queryTwo = "INSERT INTO request(needy_id, volunteer_id, address, " +
+            "latitude, longitude, created_at, service_type, status) VALUES (?,?,?,?,?,?,?,?)";
+
     @Override
     public boolean createRequest(Request request) {
         try {
             PreparedStatement statement;
-            if(request.getVolunteerId() == 0) {
-                statement= connection.prepareStatement("INSERT INTO request(needy_id, address, " +
-                        "latitude, longitude, created_at, service_type, status) VALUES (?,?,?,?,?,?,?)");
+            if (request.getVolunteerId() == 0) {
+                statement = connection.prepareStatement(queryOne);
                 statement.setLong(1, request.getNeedyId());
                 statement.setString(2, request.getAddress());
                 statement.setDouble(3, request.getLatitude());
@@ -22,8 +26,7 @@ public class RequestDaoImpl extends DAO implements RequestDao{
                 statement.setString(6, request.getServiceType());
                 statement.setString(7, request.getStatus());
             } else {
-                statement = connection.prepareStatement("INSERT INTO request(needy_id, volunteer_id, address, " +
-                        "latitude, longitude, created_at, service_type, status) VALUES (?,?,?,?,?,?,?,?)");
+                statement = connection.prepareStatement(queryTwo);
                 statement.setLong(1, request.getNeedyId());
                 statement.setLong(2, request.getVolunteerId());
                 statement.setString(3, request.getAddress());

@@ -6,13 +6,14 @@ import com.korgutlova.entities.Message;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class MessageDaoImpl extends DAO implements MessageDao{
+public class MessageDaoImpl extends DAO implements MessageDao {
+    private final String query = "INSERT INTO message(text, sender_id, recipient_id, " +
+            "created_at, status) VALUES (?,?,?,?,?)";
 
     @Override
     public boolean createMessage(Message message) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO message(text, sender_id, recipient_id, " +
-                    "created_at, status) VALUES (?,?,?,?,?)");
+            PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, message.getText());
             statement.setLong(2, message.getSenderId());
             statement.setLong(3, message.getRecipientId());

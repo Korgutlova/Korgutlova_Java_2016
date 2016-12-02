@@ -8,11 +8,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class NewsDaoImpl extends DAO implements NewsDao {
+    private final String queryGet = "SELECT * FROM news WHERE id=?";
+    private final String queryUpdate = "UPDATE news SET text=?, " +
+            "community_id=?, author_id=?, created_at=? WHERE id=?";
 
     @Override
     public News getNews(long id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM news WHERE id=?");
+            PreparedStatement statement = connection.prepareStatement(queryGet);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -30,8 +33,7 @@ public class NewsDaoImpl extends DAO implements NewsDao {
     @Override
     public boolean updateNews(News news) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE news SET text=?, " +
-                    "community_id=?, author_id=?, created_at=? WHERE id=?");
+            PreparedStatement statement = connection.prepareStatement(queryUpdate);
             statement.setString(1, news.getText());
             statement.setLong(2, news.getCommunityId());
             statement.setLong(3, news.getAuthorId());
