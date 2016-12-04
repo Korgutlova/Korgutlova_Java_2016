@@ -37,7 +37,7 @@ public class Vector2D {
         return Math.sqrt(this.x * this.x + this.y * this.y);
     }
 
-    public double scalarProduct(Vector2D v){
+    public double scalarMultiplication(Vector2D v){
         return this.x * v.getX() + this.y * v.getY();
     }
 }

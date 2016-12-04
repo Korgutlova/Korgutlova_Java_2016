@@ -19,23 +19,21 @@ public class CalculatorServletTest {
     private static final String OUTPUT = "7.5";
 
     @BeforeClass
-    public static void setUp() {
+    public static void setUp() throws IOException {
         calculatorServlet = new CalculatorServlet();
         httpServletRequest = mock(HttpServletRequest.class);
         httpServletResponse = mock(HttpServletResponse.class);
         PrintWriter printWriter = mock(PrintWriter.class);
+        printWriter.println(OUTPUT);
         when(httpServletRequest.getRequestURI()).thenReturn(INPUT);
-        try {
-            when(httpServletResponse.getWriter()).thenReturn(printWriter);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        when(httpServletResponse.getWriter()).thenReturn(printWriter);
     }
 
     @Test
     public void doGetShouldWorkCorrect() throws ServletException, IOException {
         calculatorServlet.doGet(httpServletRequest, httpServletResponse);
         verify(httpServletRequest).getRequestURI();
+        verify(httpServletResponse).getWriter();
     }
 
     @Test

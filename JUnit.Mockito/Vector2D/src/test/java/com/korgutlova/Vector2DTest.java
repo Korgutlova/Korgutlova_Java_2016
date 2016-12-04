@@ -61,7 +61,7 @@ public class Vector2DTest {
     }
 
     @Test
-    public void scalarProductShouldReturnCorrectDouble(){
-        Assert.assertEquals(X_1 * X_2 + Y_1 * Y_2, vector2D.scalarProduct(vector2DTwo), DELTA);
+    public void scalarMultiplicationShouldReturnCorrectDouble(){
+        Assert.assertEquals(X_1 * X_2 + Y_1 * Y_2, vector2D.scalarMultiplication(vector2DTwo), DELTA);
     }
 }
