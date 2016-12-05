@@ -22,7 +22,7 @@ public class CalculatorServiceImpl implements CalculatorService, Operator {
         }
     }
 
-    public double getResult(char operator, double firstNumber, double secondNumber) {
+    protected double getResult(char operator, double firstNumber, double secondNumber) {
         switch (operator) {
             case MINUS:
                 return calculator.sub(firstNumber, secondNumber);

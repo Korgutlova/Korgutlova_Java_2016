@@ -8,7 +8,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class CalculatorServiceImplTest {
-    private static CalculatorService calculatorService;
+    private static CalculatorServiceImpl calculatorService;
     private static Calculator calculator;
     private static Parser parser;
     private static final double DELTA = 10e-4;
