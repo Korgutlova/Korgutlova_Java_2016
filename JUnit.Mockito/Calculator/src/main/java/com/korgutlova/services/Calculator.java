@@ -14,6 +14,9 @@ public class Calculator {
     }
 
     public double div(double firstNumber, double secondNumber) {
+        if(secondNumber == 0){
+            throw new ArithmeticException("You can not divide by zero");
+        }
         return firstNumber / secondNumber;
     }
 }

@@ -11,29 +11,29 @@ public class CalculatorServiceImpl implements CalculatorService, Operator {
             double firstNumber = Double.parseDouble((String) data[0]);
             char operator = ((String) data[1]).charAt(0);
             double secondNumber = Double.parseDouble((String) data[2]);
-            if (operator == DIV && secondNumber == 0) {
-                return "You can not divide by zero";
-            } else {
-                double result = getResult(operator, firstNumber, secondNumber);
-                return String.valueOf(result);
-            }
+            return getResult(operator, firstNumber, secondNumber);
+
         } else {
             return "Invalid input string";
         }
     }
 
-    protected double getResult(char operator, double firstNumber, double secondNumber) {
+    protected String getResult(char operator, double firstNumber, double secondNumber) {
         switch (operator) {
             case MINUS:
-                return calculator.sub(firstNumber, secondNumber);
+                return String.valueOf(calculator.sub(firstNumber, secondNumber));
             case PLUS:
-                return calculator.sum(firstNumber, secondNumber);
+                return String.valueOf(calculator.sum(firstNumber, secondNumber));
             case DIV:
-                return calculator.div(firstNumber, secondNumber);
+                try {
+                    return String.valueOf(calculator.div(firstNumber, secondNumber));
+                } catch (ArithmeticException e){
+                    return "You can not divide by zero";
+                }
             case MULT:
-                return calculator.mult(firstNumber, secondNumber);
+                return String.valueOf(calculator.mult(firstNumber, secondNumber));
             default:
-                return 0;
+                return "Something error";
         }
     }
 }
