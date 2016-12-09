@@ -1,14 +1,27 @@
 package com.korgutlova;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.*;
 
-public class Server extends javax.swing.JFrame {
+public class Server extends JFrame {
 
     private static ServerThread server;
     private static final int PORT = 3456;
+    private JTextArea chatArea;
+    private JButton deleteButton;
+    private JButton sendButton;
+    private JTextArea textArea;
+    private JScrollPane jScrollPane1;
+    private JScrollPane jScrollPane2;
+
+    public JTextArea getChatArea() {
+        return chatArea;
+    }
 
     public Server() {
         initComponents();
@@ -16,14 +29,14 @@ public class Server extends javax.swing.JFrame {
 
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        chatArea = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        textArea = new javax.swing.JTextArea();
-        sendButton = new javax.swing.JButton();
-        deleteButton = new javax.swing.JButton();
+        jScrollPane1 = new JScrollPane();
+        chatArea = new JTextArea();
+        jScrollPane2 = new JScrollPane();
+        textArea = new JTextArea();
+        sendButton = new JButton();
+        deleteButton = new JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         chatArea.setColumns(20);
         chatArea.setRows(5);
@@ -34,41 +47,41 @@ public class Server extends javax.swing.JFrame {
         textArea.setRows(5);
         jScrollPane2.setViewportView(textArea);
 
-        sendButton.setBackground(new java.awt.Color(102, 204, 0));
+        sendButton.setBackground(new Color(102, 204, 0));
         sendButton.setText("Send");
         sendButton.addActionListener(this::SendButtonActionPerformed);
 
-        deleteButton.setBackground(new java.awt.Color(255, 102, 102));
+        deleteButton.setBackground(new Color(255, 102, 102));
         deleteButton.setText("Remove");
         deleteButton.addActionListener(this::DeleteButtonActionPerformed);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(55, 55, 55)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(sendButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(deleteButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 411, GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 289, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                        .addComponent(sendButton, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(deleteButton, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE))))
                                 .addContainerGap(78, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap(37, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(sendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(sendButton, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(deleteButton, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jScrollPane2))
                                 .addGap(57, 57, 57))
         );
@@ -76,7 +89,7 @@ public class Server extends javax.swing.JFrame {
         pack();
     }
 
-    private void SendButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void SendButtonActionPerformed(ActionEvent evt) {
         chatArea.setText(
                 chatArea.getText() + "\nMe: " + textArea.getText()
         );
@@ -85,29 +98,29 @@ public class Server extends javax.swing.JFrame {
 
     }
 
-    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void DeleteButtonActionPerformed(ActionEvent evt) {
         textArea.setText("");
     }
 
     public static void main(String args[]) {
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Server.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Server.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Server.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Server.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        java.awt.EventQueue.invokeLater(() -> {
+        EventQueue.invokeLater(() -> {
             try {
                 ServerSocket ss = new ServerSocket(PORT);
                 Server s = new Server();
@@ -120,17 +133,6 @@ public class Server extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         });
-    }
-
-    private javax.swing.JTextArea chatArea;
-    private javax.swing.JButton deleteButton;
-    private javax.swing.JButton sendButton;
-    private javax.swing.JTextArea textArea;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-
-    public JTextArea getChatArea() {
-        return chatArea;
     }
 }
 
