@@ -29,24 +29,20 @@ public class Client extends JFrame {
     }
 
     private void initComponents() {
+        createButtons();
+        createTextAreas();
+        createScrollPanes();
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        setHorizontalGroup(layout);
+        setVerticalGroup(layout);
+        pack();
+    }
 
-        jScrollPane1 = new JScrollPane();
-        chatArea = new JTextArea();
-        jScrollPane2 = new JScrollPane();
-        textArea = new JTextArea();
+    private void createButtons() {
         sendButton = new JButton();
         deleteButton = new JButton();
-
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        chatArea.setColumns(20);
-        chatArea.setRows(5);
-        chatArea.setEditable(false);
-        jScrollPane1.setViewportView(chatArea);
-
-        textArea.setColumns(20);
-        textArea.setRows(5);
-        jScrollPane2.setViewportView(textArea);
 
         sendButton.setBackground(new Color(102, 204, 0));
         sendButton.setText("Send");
@@ -55,9 +51,28 @@ public class Client extends JFrame {
         deleteButton.setBackground(new Color(255, 102, 102));
         deleteButton.setText("Remove");
         deleteButton.addActionListener(this::DeleteButtonActionPerformed);
+    }
 
-        javax.swing.GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+    private void createScrollPanes() {
+        jScrollPane1 = new JScrollPane();
+        jScrollPane2 = new JScrollPane();
+        jScrollPane1.setViewportView(chatArea);
+        jScrollPane2.setViewportView(textArea);
+    }
+
+    private void createTextAreas() {
+        chatArea = new JTextArea();
+        textArea = new JTextArea();
+
+        chatArea.setColumns(20);
+        chatArea.setRows(5);
+        chatArea.setEditable(false);
+
+        textArea.setColumns(20);
+        textArea.setRows(5);
+    }
+
+    private void setHorizontalGroup(GroupLayout layout) {
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
@@ -72,6 +87,9 @@ public class Client extends JFrame {
                                                         .addComponent(deleteButton, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE))))
                                 .addContainerGap(78, Short.MAX_VALUE))
         );
+    }
+
+    private void setVerticalGroup(GroupLayout layout) {
         layout.setVerticalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
@@ -86,8 +104,6 @@ public class Client extends JFrame {
                                         .addComponent(jScrollPane2))
                                 .addGap(57, 57, 57))
         );
-
-        pack();
     }
 
     private void SendButtonActionPerformed(ActionEvent evt) {
@@ -120,7 +136,6 @@ public class Client extends JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         EventQueue.invokeLater(() -> {
             try {
                 Socket socket = new Socket(HOST, PORT);
