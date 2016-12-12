@@ -29,6 +29,8 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
+                    <finalName>chat-client</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
                             <mainClass>com.korgutlova.Client</mainClass>

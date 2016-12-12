@@ -30,6 +30,8 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
+                    <finalName>chat-server</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
                             <mainClass>com.korgutlova.Server</mainClass>

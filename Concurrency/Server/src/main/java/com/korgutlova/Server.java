@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server extends GUI {
+public class Server extends ChatWindow {
 
     private static ClientThread server;
 

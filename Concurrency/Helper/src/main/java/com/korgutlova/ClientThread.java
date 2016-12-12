@@ -6,11 +6,11 @@ import java.net.Socket;
 
 class ClientThread extends Thread {
     private Socket socket;
-    private GUI client;
+    private ChatWindow client;
     private BufferedReader bufferedReader;
     private PrintWriter printWriter;
 
-    public ClientThread(Socket s, GUI j) throws IOException {
+    public ClientThread(Socket s, ChatWindow j) throws IOException {
         this.socket = s;
         this.client = j;
         this.bufferedReader = new BufferedReader(new InputStreamReader(s.getInputStream()));

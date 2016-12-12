@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class GUI extends JFrame {
+public class ChatWindow extends JFrame {
     protected static final String HOST = "localhost";
     protected static final int PORT = 3456;
     private JTextArea chatArea;
@@ -22,7 +22,7 @@ public class GUI extends JFrame {
         return textArea;
     }
 
-    public GUI(){
+    public ChatWindow(){
         initComponents();
     }
     private void initComponents() {

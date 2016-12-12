@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.Socket;
 
-public class Client extends GUI {
+public class Client extends ChatWindow {
 
     private static ClientThread client;
 
