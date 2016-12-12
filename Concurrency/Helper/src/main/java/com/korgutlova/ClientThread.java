@@ -4,21 +4,23 @@ import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 
-class ServerThread extends Thread{
+class ClientThread extends Thread {
     private Socket socket;
-    private Server server;
+    private GUI client;
     private BufferedReader bufferedReader;
     private PrintWriter printWriter;
-    public ServerThread(Socket s, Server j) throws IOException {
+
+    public ClientThread(Socket s, GUI j) throws IOException {
         this.socket = s;
-        this.server = j;
+        this.client = j;
         this.bufferedReader = new BufferedReader(new InputStreamReader(s.getInputStream()));
         this.printWriter = new PrintWriter(s.getOutputStream(), true);
     }
-    public void run (){
+
+    public void run() {
         try {
             String s;
-            JTextArea jta = server.getChatArea();
+            JTextArea jta = client.getChatArea();
             while (true) {
                 s = bufferedReader.readLine();
                 jta.setText(jta.getText() + "\nYour friend: " + s);
@@ -28,7 +30,7 @@ class ServerThread extends Thread{
         }
     }
 
-    public PrintWriter getPrintWriter(){
+    public PrintWriter getPrintWriter() {
         return printWriter;
     }
 
