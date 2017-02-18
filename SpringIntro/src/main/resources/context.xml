@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config />
+    <bean class="com.korgutlova.entity.impl.Museum" id="museum">
+        <property name="name" value="New museum"/>
+        <property name="address" value="street Veronina 97"/>
+        <property name="status" value="opened"/>
+    </bean>
+
+    <bean class="com.korgutlova.entity.impl.Glasses" id="glasses" scope="prototype">
+        <property name="cost" value="20000"/>
+        <property name="description" value="Very nice glasses. 3 diopters"/>
+    </bean>
+
+    <bean class="com.korgutlova.entity.impl.Car" id="car" scope="prototype">
+        <property name="name" value="Ford"/>
+    </bean>
+    <bean class="com.korgutlova.entity.impl.Car" id="newCar">
+        <property name="name" value="Lada"/>
+    </bean>
+
+    <bean class="com.korgutlova.entity.impl.PictureFactory" id="malevich">
+        <property name="name" value="Black square"/>
+    </bean>
+    <bean class="com.korgutlova.entity.impl.PictureFactory" id="rozanova">
+        <property name="name" value="Green band"/>
+    </bean>
+
+    <bean class="com.korgutlova.entity.impl.Student" id="student">
+        <property name="name" value="Vova"/>
+        <property name="transport" ref="car"/>
+        <property name="attribute" ref="glasses"/>
+    </bean>
+    <bean class="com.korgutlova.entity.impl.Student" id="newStudent">
+        <property name="name" value="Vasya"/>
+    </bean>
+    <bean class="com.korgutlova.entity.impl.Grandmother" id="grandmother">
+        <property name="name" value="Lusya"/>
+    </bean>
+
+</beans>
