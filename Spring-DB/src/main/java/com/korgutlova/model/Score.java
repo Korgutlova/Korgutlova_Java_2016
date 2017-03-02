@@ -16,8 +16,9 @@ public class Score {
 
     private int score;
 
-    @Column(name = "id_student")
-    private long id_student;
+    @ManyToOne
+    @JoinColumn(name = "id_student")
+    private Student student;
 
     public long getId() {
         return id;
@@ -46,11 +47,11 @@ public class Score {
         this.score = score;
     }
 
-    public long getIdStudent() {
-        return id_student;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setIdStudent(long idStudent) {
-        this.id_student = idStudent;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

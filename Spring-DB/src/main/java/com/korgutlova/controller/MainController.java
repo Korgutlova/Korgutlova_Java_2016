@@ -4,6 +4,7 @@ import com.korgutlova.model.enums.Subject;
 import com.korgutlova.services.JdbcTemplateDao;
 import com.korgutlova.services.ScoresService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +15,7 @@ public class MainController {
     private final ScoresService scoresService;
 
     @Autowired
-    public MainController(JdbcTemplateDao scoresService) {
+    public MainController(@Qualifier(value = "jdbc") ScoresService scoresService) {
         this.scoresService = scoresService;
     }
 

@@ -90,7 +90,7 @@ public class PersistenceConfig implements EnvironmentAware {
     }
 
     @Bean
-    public JdbcTemplate getJdbcTemplate() throws PropertyVetoException, IOException {
+    public JdbcTemplate JdbcTemplate() throws PropertyVetoException, IOException {
         return new JdbcTemplate(dataSource());
     }
 }
