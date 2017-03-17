@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="1603172348_1" author="korgutlova">
+        <createTable tableName="chats">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_one" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_two" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1603172348_2" author="korgutlova">
+        <addForeignKeyConstraint baseTableName="chats"
+                                 baseColumnNames="user_one"
+                                 constraintName="user_one_chats_id_users_fk"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="1603172348_3" author="korgutlova">
+        <addForeignKeyConstraint baseTableName="chats"
+                                 baseColumnNames="user_two"
+                                 constraintName="user_two_chats_id_users_fk"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

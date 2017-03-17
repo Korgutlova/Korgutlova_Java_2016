@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="bitches_1" author="korgutlova">
+        <loadUpdateData tableName="users" primaryKey="id" file="db/bitches/users.csv">
+            <column name="id" type="numeric"/>
+        </loadUpdateData>
+    </changeSet>
+    <changeSet id="bitches_2" author="korgutlova">
+        <loadUpdateData tableName="posts" primaryKey="id" file="db/bitches/posts.csv">
+            <column name="id" type="numeric"/>
+        </loadUpdateData>
+    </changeSet>
+    <changeSet id="bitches_3" author="korgutlova">
+        <loadUpdateData tableName="chats" primaryKey="id" file="db/bitches/chats.csv">
+            <column name="id" type="numeric"/>
+        </loadUpdateData>
+    </changeSet>
+    <changeSet id="bitches_4" author="korgutlova">
+        <loadUpdateData tableName="messages" primaryKey="id" file="db/bitches/messages.csv">
+            <column name="id" type="numeric"/>
+        </loadUpdateData>
+    </changeSet>
+</databaseChangeLog>
