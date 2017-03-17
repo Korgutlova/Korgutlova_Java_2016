@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="1703170009_1" author="korgutlova">
+        <createTable tableName="messages">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sender" type="bigint"/>
+            <column name="chat" type="bigint"/>
+            <column name="text" type="varchar(300)"/>
+            <column name="date" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1703170009_2" author="korgutlova">
+        <addForeignKeyConstraint baseTableName="messages"
+                                 baseColumnNames="sender"
+                                 constraintName="sender_messages_id_users_fk"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="1703170009_3" author="korgutlova">
+        <addForeignKeyConstraint baseTableName="messages"
+                                 baseColumnNames="chat"
+                                 constraintName="chat_messages_id_chats_fk"
+                                 referencedTableName="chats"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
